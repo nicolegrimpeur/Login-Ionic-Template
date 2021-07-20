@@ -1,0 +1,34 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Home
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item>
+    <ion-label>
+      <p>Méthode de connexion</p>
+      <h2><b>email & {{ method }}</b></h2>
+    </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>
+      <p>Identifiant</p>
+      <h2><b>{{ userId }}</b></h2>
+    </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>
+      <p>Adresse email</p>
+      <h2><b>{{ mail }}</b></h2>
+    </ion-label>
+  </ion-item>
+
+  <div class="ion-padding">
+    <ion-button expand="block" color="danger" (click)="logout()">Déconnexion</ion-button>
+  </div>
+</ion-content>

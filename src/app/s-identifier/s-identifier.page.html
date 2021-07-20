@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Bienvenue !</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Connexion</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-label><b>Email</b></ion-label>
+        <ion-input [(ngModel)]="email" type="email" placeholder="Entrez votre email"></ion-input>
+      </ion-item>
+
+      <div class="ion-padding">
+        <ion-button (click)="continu()" expand="block" color="primary">Continuer</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

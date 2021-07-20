@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Créer un compte</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+        <ion-card-header>
+          <ion-card-title>Inscription</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-item>
+            <ion-label><b>Email</b></ion-label>
+            <ion-input [(ngModel)]="registerData.email" type="email" placeholder="Entrez votre email"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label><b>Mot de passe</b></ion-label>
+            <ion-input [(ngModel)]="registerData.password" type="password" placeholder="Entrez votre mot de passe"></ion-input>
+          </ion-item>
+
+          <div class="ion-padding">
+            <ion-button (click)="signUp()" expand="block" color="tertiary">Inscription</ion-button>
+          </div>
+        </ion-card-content>
+
+      </ion-card>
+</ion-content>

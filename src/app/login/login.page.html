@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Connexion</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-label><b>Email</b></ion-label>
+        <ion-input [(ngModel)]="loginData.email" type="email" placeholder="Entrez votre email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Mot de passe</b></ion-label>
+        <ion-input [(ngModel)]="loginData.password" type="password" placeholder="Entrez votre mot de passe"></ion-input>
+      </ion-item>
+
+      <div class="ion-padding">
+        <ion-button (click)="login()" expand="block" color="primary">Connexion</ion-button>
+      </div>
+
+      <p style="text-align: center;" (click)="reInitialisationPassword()">Mot de passe oublié</p>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
