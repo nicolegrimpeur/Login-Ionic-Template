@@ -25,7 +25,7 @@
         <ion-button (click)="login()" expand="block" color="primary">Connexion</ion-button>
       </div>
 
-      <p style="text-align: center;" (click)="reInitialisationPassword()">Mot de passe oublié</p>
+      <ion-button disabled="{{disabledButton}}" fill="clear" (click)="reInitialisationPassword()">Mot de passe oublié</ion-button>
     </ion-card-content>
   </ion-card>
 

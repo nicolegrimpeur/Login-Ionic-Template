@@ -13,6 +13,7 @@ export class LoginPage implements OnInit {
     email: '',
     password: ''
   };
+  public disabledButton = false;
 
   constructor(
     public router: Router,
@@ -76,6 +77,7 @@ export class LoginPage implements OnInit {
             this.afAuth.sendPasswordResetEmail(this.loginData.email)
               .then(res => {
                 this.displayError('Email envoyé.').then();
+                this.disabledButton = true;
               });
           } else { // sinon on affiche une erreur
             this.router.navigateByUrl('/authenticate').then();
