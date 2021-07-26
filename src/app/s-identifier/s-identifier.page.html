@@ -20,6 +20,19 @@
         <ion-button (click)="continu()" expand="block" color="primary">Continuer</ion-button>
       </div>
     </ion-card-content>
+
   </ion-card>
+
+  <p style="text-align: center">--- ou ---</p>
+
+  <ion-button
+    type="submit"
+    color="danger"
+    expand="block"
+    style="margin: 0 5vw"
+    (click)="googleAuth()">
+    <ion-icon slot="start" name="logo-google"></ion-icon>
+    Login with Google
+  </ion-button>
 
 </ion-content>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
-import {ToastController} from "@ionic/angular";
-import {AngularFireAuth} from "@angular/fire/auth";
+import {Router} from '@angular/router';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {Display} from '../shared/functions/displayError';
 
 @Component({
   selector: 'app-register',
@@ -16,8 +16,8 @@ export class RegisterPage implements OnInit {
 
   constructor(
     public router: Router,
-    public toastController: ToastController,
-    public afAuth: AngularFireAuth
+    public afAuth: AngularFireAuth,
+    public display: Display
   ) {
     let after = false;
     for (const i of this.router.url) {
@@ -41,16 +41,7 @@ export class RegisterPage implements OnInit {
       })
       .catch(err => {
         console.log('Erreur: ' + err);
-        this.displayError(err).then();
+        this.display.displayError(err).then();
       });
-  }
-
-  async displayError(err: string) {
-    const toast = await this.toastController.create({
-      message: err,
-      duration: 2000,
-      position: 'top'
-    });
-    await toast.present();
   }
 }
