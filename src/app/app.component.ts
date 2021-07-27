@@ -21,12 +21,12 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.afAuth.authState.subscribe(auth => {
-        if (!auth) {
-          console.log('/authenticate');
-          this.router.navigateByUrl('/authenticate').then();
-        } else {
+        if (auth) {
           console.log('/');
           this.router.navigateByUrl('/').then();
+        } else {
+          console.log('/authenticate');
+          this.router.navigateByUrl('/authenticate').then();
         }
       });
     });

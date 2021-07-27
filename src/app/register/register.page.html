@@ -21,8 +21,13 @@
             <ion-input [(ngModel)]="registerData.password" type="password" placeholder="Entrez votre mot de passe"></ion-input>
           </ion-item>
 
+          <ion-item>
+            <ion-label><b>Confirmez votre mot de passe</b></ion-label>
+            <ion-input [(ngModel)]="registerData.confirmPassword" type="password" placeholder="Entrez votre mot de passe"></ion-input>
+          </ion-item>
+
           <div class="ion-padding">
-            <ion-button (click)="signUp()" expand="block" color="tertiary">Inscription</ion-button>
+            <ion-button (click)="checkMdp()" expand="block" color="tertiary">Inscription</ion-button>
           </div>
         </ion-card-content>
 

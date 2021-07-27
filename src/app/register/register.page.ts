@@ -11,7 +11,8 @@ import {Display} from '../shared/class/display';
 export class RegisterPage implements OnInit {
   public registerData = {
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   };
 
   constructor(
@@ -28,10 +29,21 @@ export class RegisterPage implements OnInit {
         after = true;
       }
     }
-    display.displayError('hello world').then();
   }
 
   ngOnInit() {
+  }
+
+  // fonction pour vérifier que les mots de passe sont identiques
+  checkMdp() {
+    if (this.registerData.password === this.registerData.confirmPassword) {
+      this.signUp();
+    }
+    else {
+      this.display.displayError('Les deux mots de passe sont différents, veuillez réessayer').then();
+      this.registerData.password = '';
+      this.registerData.confirmPassword = '';
+    }
   }
 
   signUp() {
