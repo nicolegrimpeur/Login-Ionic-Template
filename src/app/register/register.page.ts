@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {Display} from '../shared/functions/displayError';
+import {Display} from '../shared/class/display';
 
 @Component({
   selector: 'app-register',
@@ -41,7 +41,7 @@ export class RegisterPage implements OnInit {
       })
       .catch(err => {
         console.log('Erreur: ' + err);
-        this.display.displayError(err).then();
+        this.display.displayError(err);
       });
   }
 }

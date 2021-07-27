@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AngularFireAuth} from '@angular/fire/auth';
-
+import {Display} from '../shared/class/display';
 import firebase from 'firebase';
-// import auth2 = firebase.auth;
 
 @Component({
   selector: 'app-s-identifier',
@@ -15,7 +14,8 @@ export class SIdentifierPage implements OnInit {
 
   constructor(
     public router: Router,
-    public afAuth: AngularFireAuth
+    public afAuth: AngularFireAuth,
+    private display: Display
   ) {
   }
 
@@ -29,7 +29,7 @@ export class SIdentifierPage implements OnInit {
         if (auth.length === 1) { // si le mail existe, on l'envoi sur la page de login
           this.router.navigateByUrl('login?' + this.email).then();
         } else if (auth[0] === 'google.com') {
-          console.warn('connexion par google');
+          this.googleAuth();
         } else { // sinon on l'envoi sur la page pour créer un compte
           this.router.navigateByUrl('register?' + this.email).then();
         }
@@ -40,10 +40,10 @@ export class SIdentifierPage implements OnInit {
     console.log('google');
     this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then((result) => {
-        this.router.navigate(['home']).then();
+        this.router.navigateByUrl('/authenticate').then();
       })
-      .catch((error) => {
-        window.alert(error);
+      .catch(err => {
+        this.display.displayError(err);
       });
   }
 }

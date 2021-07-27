@@ -22,8 +22,10 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.afAuth.authState.subscribe(auth => {
         if (!auth) {
+          console.log('/authenticate');
           this.router.navigateByUrl('/authenticate').then();
         } else {
+          console.log('/');
           this.router.navigateByUrl('/').then();
         }
       });
