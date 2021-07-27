@@ -26,10 +26,12 @@ export class SIdentifierPage implements OnInit {
     this.afAuth.fetchSignInMethodsForEmail(this.email)
       .then(auth => {
         console.log('erreur : ', auth);
-        if (auth.length === 1) { // si le mail existe, on l'envoi sur la page de login
-          this.router.navigateByUrl('login?' + this.email).then();
-        } else if (auth[0] === 'google.com') {
+        if (auth[0] === 'google.com') {
           this.googleAuth();
+        } else if (auth[0] === 'microsoft.com') {
+          this.microsoftAuth();
+        } else if (auth.length === 1) { // si le mail existe, on l'envoi sur la page de login
+          this.router.navigateByUrl('login?' + this.email).then();
         } else { // sinon on l'envoi sur la page pour créer un compte
           this.router.navigateByUrl('register?' + this.email).then();
         }
@@ -50,6 +52,17 @@ export class SIdentifierPage implements OnInit {
   microsoftAuth() {
     console.log('microsoft');
     this.afAuth.signInWithPopup(new firebase.auth.OAuthProvider('microsoft.com'))
+      .then((result) => {
+        this.router.navigateByUrl('/').then();
+      })
+      .catch(err => {
+        this.display.displayError(err).then();
+      });
+  }
+
+  githubAuth() {
+    console.log('github');
+    this.afAuth.signInWithPopup(new firebase.auth.GithubAuthProvider())
       .then((result) => {
         this.router.navigateByUrl('/').then();
       })

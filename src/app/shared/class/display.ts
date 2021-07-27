@@ -23,6 +23,8 @@ export class Display {
       strMessage = 'Pas de connexion internet';
     } else if (err.code === 'auth/user-cancelled') {
       strMessage = 'Votre organisation doit d\'abord valider la connexion';
+    } else if (err.code === 'auth/account-exists-with-different-credential') {
+      strMessage = 'L\'adresse email utilisée est associé à un autre compte';
     } else if (err.code === 'auth/popup-closed-by-user') {
       strMessage = 'La popup de connexion a été fermé brusquement, veuillez réessayer ' +
         'ou désactiver votre adblocker si l\'erreur continue de se produire';
@@ -35,7 +37,7 @@ export class Display {
 
     const toast = await this.toastController.create({
       message: strMessage,
-      duration: 3000,
+      duration: 5000,
       position: 'top',
       color: 'danger'
     });

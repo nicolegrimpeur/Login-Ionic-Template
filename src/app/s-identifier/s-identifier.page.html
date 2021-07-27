@@ -39,12 +39,24 @@
 
   <ion-button
     type="submit"
-    color="light"
+    color="dark"
     expand="block"
     style="margin: 0 5vw"
     (click)="microsoftAuth()">
     <ion-icon slot="start" name="logo-microsoft"></ion-icon>
     Login with Microsoft
+  </ion-button>
+
+  <br>
+
+  <ion-button
+    type="submit"
+    color="light"
+    expand="block"
+    style="margin: 0 5vw"
+    (click)="githubAuth()">
+    <ion-icon slot="start" name="logo-github"></ion-icon>
+    Login with Github
   </ion-button>
 
 </ion-content>
