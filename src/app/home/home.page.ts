@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Router} from '@angular/router';
+import {MenuController} from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,8 @@ export class HomePage {
 
   constructor(
     public afAuth: AngularFireAuth,
-    private router: Router
+    private router: Router,
+    private menu: MenuController
   ) {
     this.afAuth.authState.subscribe(auth => {
       if (!auth) {
@@ -28,6 +30,10 @@ export class HomePage {
         this.method = auth.providerData[0].providerId;
       }
     });
+  }
+
+  async openMenu() {
+    await this.menu.open();
   }
 
   logout() {

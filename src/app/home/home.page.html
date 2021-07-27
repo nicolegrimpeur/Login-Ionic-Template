@@ -1,8 +1,39 @@
+<ion-menu side="start" menuId="first" contentId="menu">
+  <ion-header>
+    <ion-toolbar color="medium">
+      <ion-title>{{mail}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item>Menu Item</ion-item>
+      <ion-item>Menu Item</ion-item>
+      <ion-item>Menu Item</ion-item>
+      <ion-item>Menu Item</ion-item>
+      <ion-item>Menu Item</ion-item>
+      <ion-item color="danger" (click)="logout()">Déconnexion</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+<ion-router-outlet id="menu"></ion-router-outlet>
+
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button content="main"></ion-menu-button>
+    </ion-buttons>
     <ion-title>
       Home
     </ion-title>
+
+<!--    <ion-select slot="end">{{ mail }}</ion-select>-->
+
+    <ion-select slot="end" placeholder="{{mail}}" okText="Okay" cancelText="Dismiss">
+      <ion-select-option value="brown">Brown</ion-select-option>
+      <ion-select-option value="blonde">Blonde</ion-select-option>
+      <ion-select-option value="black">Black</ion-select-option>
+      <ion-select-option value="red">Red</ion-select-option>
+    </ion-select>
   </ion-toolbar>
 </ion-header>
 
@@ -10,7 +41,7 @@
   <ion-item>
     <ion-label>
       <p>Méthode de connexion</p>
-      <h2><b>email & {{ method }}</b></h2>
+      <h2><b>{{ method }}</b></h2>
     </ion-label>
   </ion-item>
 
