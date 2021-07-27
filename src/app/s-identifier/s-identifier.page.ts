@@ -40,10 +40,21 @@ export class SIdentifierPage implements OnInit {
     console.log('google');
     this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then((result) => {
-        this.router.navigateByUrl('/authenticate').then();
+        this.router.navigateByUrl('/').then();
       })
       .catch(err => {
-        this.display.displayError(err);
+        this.display.displayError(err).then();
+      });
+  }
+
+  microsoftAuth() {
+    console.log('microsoft');
+    this.afAuth.signInWithPopup(new firebase.auth.OAuthProvider('microsoft.com'))
+      .then((result) => {
+        this.router.navigateByUrl('/').then();
+      })
+      .catch(err => {
+        this.display.displayError(err).then();
       });
   }
 }

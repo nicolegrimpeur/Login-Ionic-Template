@@ -28,7 +28,7 @@ export class RegisterPage implements OnInit {
         after = true;
       }
     }
-
+    display.displayError('hello world').then();
   }
 
   ngOnInit() {
