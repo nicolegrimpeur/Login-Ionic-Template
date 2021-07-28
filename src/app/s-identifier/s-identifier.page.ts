@@ -35,6 +35,9 @@ export class SIdentifierPage implements OnInit {
         } else { // sinon on l'envoi sur la page pour créer un compte
           this.router.navigateByUrl('register?' + this.email).then();
         }
+      })
+      .catch(err => {
+        this.display.displayError(err).then();
       });
   }
 

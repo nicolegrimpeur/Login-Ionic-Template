@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'authenticate',
     loadChildren: () => import('./s-identifier/s-identifier.module').then( m => m.SIdentifierPageModule)
   },
+  {
+    path: 'account',
+    loadChildren: () => import('./account/account.module').then( m => m.AccountPageModule)
+  },
 ];
 
 @NgModule({
