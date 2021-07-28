@@ -1,8 +1,8 @@
 <ion-app>
-  <ion-menu *ngIf="mail !== ''" side="start" menuId="first" contentId="menu">
+  <ion-menu *ngIf="user.mail !== undefined" side="start" contentId="menu">
     <ion-header>
       <ion-toolbar color="medium">
-        <ion-title>{{mail}}</ion-title>
+        <ion-title>{{user.mail}}</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
@@ -16,7 +16,7 @@
           <ion-icon name="settings-outline"></ion-icon>
           <ion-label>Compte</ion-label>
         </ion-button>
-        <ion-button expand="block" color="danger" (click)="logout()">
+        <ion-button expand="block" color="danger" (click)="user.logout()">
           <ion-icon name="log-out-outline"></ion-icon>
           <ion-label>Déconnexion</ion-label>
         </ion-button>

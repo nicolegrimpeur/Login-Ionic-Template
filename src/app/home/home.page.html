@@ -13,25 +13,25 @@
   <ion-item>
     <ion-label>
       <p>Méthode de connexion</p>
-      <h2><b>{{ method }}</b></h2>
+      <h2><b>{{ user.method }}</b></h2>
     </ion-label>
   </ion-item>
 
   <ion-item>
     <ion-label>
       <p>Identifiant</p>
-      <h2><b>{{ userId }}</b></h2>
+      <h2><b>{{ user.userId }}</b></h2>
     </ion-label>
   </ion-item>
 
   <ion-item>
     <ion-label>
       <p>Adresse email</p>
-      <h2><b>{{ mail }}</b></h2>
+      <h2><b>{{ user.mail }}</b></h2>
     </ion-label>
   </ion-item>
 
   <div class="ion-padding">
-    <ion-button expand="block" color="danger" (click)="logout()">Déconnexion</ion-button>
+    <ion-button expand="block" color="danger" (click)="user.logout()">Déconnexion</ion-button>
   </div>
 </ion-content>

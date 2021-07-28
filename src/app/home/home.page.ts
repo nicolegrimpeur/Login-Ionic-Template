@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Router} from '@angular/router';
 import {MenuController} from '@ionic/angular';
+import {User} from '../shared/class/user';
 
 @Component({
   selector: 'app-home',
@@ -9,34 +10,15 @@ import {MenuController} from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  public userId: string;
-  public mail: string;
-  public method: any;
-
   constructor(
     public afAuth: AngularFireAuth,
     private router: Router,
-    private menu: MenuController
+    private menu: MenuController,
+    public user: User
   ) {
-    this.afAuth.authState.subscribe(auth => {
-      if (!auth) {
-        console.log('non connecté');
-        console.log(this.router.url);
-        this.router.navigateByUrl('/authenticate').then();
-      } else {
-        console.log('connecté: ' + auth.uid);
-        this.userId = auth.uid;
-        this.mail = auth.email;
-        this.method = auth.providerData[0].providerId;
-      }
-    });
   }
 
   async openMenu() {
     await this.menu.open();
-  }
-
-  logout() {
-    this.afAuth.signOut().then();
   }
 }
