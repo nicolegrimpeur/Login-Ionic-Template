@@ -8,11 +8,9 @@ export class Display {
   constructor(
     public toastController: ToastController
   ) {
-    console.log('coucou');
   }
 
   async displayError(err: any) {
-    console.log('diplay');
     let strMessage;
 
     if (err.code === 'auth/user-not-found') {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MenuController} from '@ionic/angular';
 
 @Component({
   selector: 'app-account',
@@ -7,7 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private menu: MenuController
+  ) {
+    this.menu.isOpen('menu')
+      .then(res => {
+        console.log(res, 'res');
+      })
+      .catch(err => {
+        console.log(err, 'menu');
+      });
+  }
 
   ngOnInit() {
   }
