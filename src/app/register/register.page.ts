@@ -50,11 +50,11 @@ export class RegisterPage implements OnInit {
     this.afAuth.createUserWithEmailAndPassword(this.registerData.email, this.registerData.password)
       .then(auth => {
         console.log('utilisateur connecté');
+        this.router.navigateByUrl('/').then();
       })
       .catch(err => {
         console.log('Erreur: ' + err);
         this.display.displayError(err).then();
       });
-    this.router.navigateByUrl('/').then();
   }
 }
