@@ -12,6 +12,7 @@ export class Display {
 
   async displayError(err: any) {
     let strMessage;
+    let couleur = 'danger';
 
     if (err.code === 'auth/user-not-found') {
       strMessage = 'Aucun utilisateur enregistré avec cette adresse email, merci de vous créer un compte';
@@ -33,11 +34,16 @@ export class Display {
       strMessage = err;
     }
 
+    if (err.color !== undefined) {
+      strMessage = err.code;
+      couleur = err.color;
+    }
+
     const toast = await this.toastController.create({
       message: strMessage,
       duration: 5000,
       position: 'top',
-      color: 'danger'
+      color: couleur
     });
     await toast.present();
   }

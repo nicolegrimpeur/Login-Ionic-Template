@@ -53,7 +53,8 @@ export class RegisterPage implements OnInit {
       })
       .catch(err => {
         console.log('Erreur: ' + err);
-        this.display.displayError(err);
+        this.display.displayError(err).then();
       });
+    this.router.navigateByUrl('/').then();
   }
 }

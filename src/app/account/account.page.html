@@ -4,10 +4,51 @@
       <ion-menu-button content="main"></ion-menu-button>
     </ion-buttons>
 
-    <ion-title>account</ion-title>
+    <ion-title>Mon Compte</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card *ngIf="user.isConnectedWithEmail()">
+    <ion-card-header>
+      <ion-card-title>Changer votre mot de passe</ion-card-title>
+    </ion-card-header>
 
+    <ion-card-content>
+      <ion-item>
+        <ion-label><b>Mot de passe actuel</b></ion-label>
+        <ion-input [(ngModel)]="oldPassword" type="password" placeholder="Ancien mot de passe"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label><b>Nouveau mot de passe</b></ion-label>
+        <ion-input [(ngModel)]="newPassword" type="password" placeholder="Nouveau mot de passe"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label><b>Confirmez votre nouveau mot de passe</b></ion-label>
+        <ion-input [(ngModel)]="confirmNewPassword" type="password" placeholder="Confirmez nouveau mot de passe"></ion-input>
+      </ion-item>
+
+      <div class="ion-padding">
+        <ion-button (click)="changePassword()" expand="block" color="primary">Continuer</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card *ngIf="user.isConnectedWithEmail()">
+    <ion-card-header>
+      <ion-card-title>Suppression de votre compte</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-label><b>Mot de passe</b></ion-label>
+        <ion-input [(ngModel)]="password" type="password" placeholder="Mot de passe"></ion-input>
+      </ion-item>
+
+      <div class="ion-padding">
+        <ion-button (click)="suppressionAccount()" expand="block" color="primary">Supprimer votre compte</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
