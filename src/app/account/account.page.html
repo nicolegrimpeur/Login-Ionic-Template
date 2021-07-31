@@ -12,7 +12,9 @@
   <ion-button *ngIf="!user.isEmailVerified()" disabled="{{disabledButton}}" fill="clear" (click)="sendEmailVerification()">
     Vérifier votre email
   </ion-button>
-  <p *ngIf="disabledButton">Check ta boite mail !</p>
+  <p *ngIf="disabledButton" style="margin-left: 4vw">Check ta boite mail !</p>
+
+  <ion-item-divider *ngIf="!user.isEmailVerified()"></ion-item-divider>
 
   <ion-card *ngIf="user.isConnectedWithEmail()">
     <ion-card-header>
@@ -39,6 +41,7 @@
     </ion-card-content>
   </ion-card>
 
+  <ion-item-divider *ngIf="user.isConnectedWithEmail()"></ion-item-divider>
 
   <ion-card>
     <ion-card-header>

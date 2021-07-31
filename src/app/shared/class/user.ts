@@ -118,7 +118,7 @@ export class User {
   sendEmailVerification() {
     this.initCurrentUser();
     this.currentUser.sendEmailVerification()
-      .then(() => this.display.displayError('Email envoyé !'));
+      .then(() => this.display.displayError({code: 'Email envoyé !', color: 'success'}));
   }
 
   suppAccount(password) {
