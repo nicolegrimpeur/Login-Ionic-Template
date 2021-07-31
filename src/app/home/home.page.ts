@@ -1,6 +1,4 @@
 import {Component} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
-import {Router} from '@angular/router';
 import {User} from '../shared/class/user';
 
 @Component({
@@ -10,8 +8,6 @@ import {User} from '../shared/class/user';
 })
 export class HomePage {
   constructor(
-    public afAuth: AngularFireAuth,
-    private router: Router,
     public user: User
   ) {
   }

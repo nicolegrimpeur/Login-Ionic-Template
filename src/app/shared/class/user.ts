@@ -36,7 +36,6 @@ export class User {
   // initialise le currentUser
   initCurrentUser() {
     this.currentUser = firebase.auth().currentUser;
-    console.log(this.currentUser);
   }
 
   // test si l'on est sur une page de login
@@ -44,6 +43,7 @@ export class User {
     return this.router.url === '/authenticate' || this.router.url.search('login') === 0 || this.router.url === '/register';
   }
 
+  // redirige l'utilisateur s'il est connecté ou non
   redirection() {
     this.platform.ready().then(() => {
       this.afAuth.authState.subscribe(auth => {
@@ -58,6 +58,7 @@ export class User {
     });
   }
 
+  // ajoute au compte un nom d'utilisateur
   addDisplayName(name) {
     this.initCurrentUser();
     this.currentUser.updateProfile({ displayName: name })
@@ -69,12 +70,10 @@ export class User {
       });
   }
 
+  // récupère les données de connexion
   connexion() {
     this.afAuth.authState.subscribe(auth => {
-      if (!auth) {
-        console.log('non connecté');
-      } else {
-        console.log(auth.isAnonymous);
+      if (auth) {
         if (!auth.isAnonymous) {
           this.userData.mail = auth.email;
           this.userData.method = auth.providerData[0].providerId;
@@ -85,9 +84,8 @@ export class User {
     });
   }
 
+  // déconnecte l'utilisateur
   logout() {
-    this.display.displayError({code: 'Vous êtes déconnecté', color: 'success'}).then();
-
     this.menu.isOpen('menu')
       .then(res => {
         if (res) {
@@ -99,16 +97,21 @@ export class User {
       });
 
     this.afAuth.signOut().then();
+
+    this.display.displayError({code: 'Vous êtes déconnecté', color: 'success'}).then();
+
     this.userData.userId = undefined;
     this.userData.mail = undefined;
     this.userData.method = undefined;
     this.userData.displayName = undefined;
   }
 
+  // test si l'utilisateur est connecté avec un mail / mot de passe ou pas
   isConnectedWithEmail() {
     return this.userData.method === 'password';
   }
 
+  // test si l'utilisateur a vérifié son mail ou non
   isEmailVerified() {
     if (!this.isConnectedWithEmail()) {
       return false;
@@ -119,15 +122,18 @@ export class User {
     return this.currentUser.emailVerified;
   }
 
+  // envoi l'email de vérification à l'utilisateur
   sendEmailVerification() {
     this.initCurrentUser();
     this.currentUser.sendEmailVerification()
       .then(() => this.display.displayError({code: 'Email envoyé !', color: 'success'}));
   }
 
+  // modifie le mot de passe
   changePassword(oldPassword, newPassword) {
     this.initCurrentUser();
 
+    // on reconnecte d'abord l'utilisateur, puis on change le mot de passe
     this.afAuth.signInWithEmailAndPassword(this.userData.mail, oldPassword)
       .then(res => {
         this.currentUser.updatePassword(newPassword).then(() => {
@@ -142,9 +148,11 @@ export class User {
       });
   }
 
+  // test avant suppression du compte utilisateur
   suppAccount(password) {
     this.initCurrentUser();
 
+    // on connecte l'utilisateur en fonction de la méthode de connexion
     switch (this.userData.method) {
       case 'google.com':
         this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
@@ -188,6 +196,7 @@ export class User {
     }
   }
 
+  // suppression du compte utilisateur -> ne peut pas être lancé avant d'avoir reconnecté l'utilisateur
   suppressionDuCompte() {
     this.currentUser.delete()
       .then(() => {

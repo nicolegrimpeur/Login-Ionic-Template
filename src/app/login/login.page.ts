@@ -9,10 +9,12 @@ import {Display} from '../shared/class/display';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  // data utilisés pour la connexion
   public loginData = {
     email: '',
     password: ''
   };
+  // pour désactiver le bouton
   public disabledButton = false;
 
   constructor(
@@ -21,6 +23,7 @@ export class LoginPage implements OnInit {
     public display: Display
   ) {
     let after = false;
+    // récupère l'email dans le lien
     for (const i of this.router.url) {
       if (after && i !== '=') {
         this.loginData.email += i;
@@ -33,24 +36,21 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
+  // connecte l'utilisateur avec email et mot de passe
   login() {
     this.afAuth.signInWithEmailAndPassword(this.loginData.email, this.loginData.password)
       .then(auth => {
-        console.log('utilisateur connecté');
         this.router.navigateByUrl('/').then();
       })
       .catch(err => {
-        console.log('Erreur: ' + err);
-        this.display.displayError(err);
+        this.display.displayError(err).then();
       });
   }
 
+  // permet d'envoyer un mail de réinitialisation de mot de passe
   async reInitialisationPassword() {
-    console.log(this.loginData.email);
-
     this.afAuth.fetchSignInMethodsForEmail(this.loginData.email)
       .then(auth => {
-          console.log('erreur : ', auth);
           if (auth.length === 1) { // si le mail existe, on réinitialise le mot de passe
             this.afAuth.sendPasswordResetEmail(this.loginData.email)
               .then(res => {

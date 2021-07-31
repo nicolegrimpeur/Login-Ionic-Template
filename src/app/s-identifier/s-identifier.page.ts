@@ -10,6 +10,7 @@ import firebase from 'firebase';
   styleUrls: ['./s-identifier.page.scss'],
 })
 export class SIdentifierPage implements OnInit {
+  // variable pour le champ de mail
   public email: string;
 
   constructor(
@@ -22,14 +23,18 @@ export class SIdentifierPage implements OnInit {
   ngOnInit() {
   }
 
+  // au clic sur le bouton continuer
   continu() {
+    // on check si l'email est déjà associé ou non à un utilisateur
     this.afAuth.fetchSignInMethodsForEmail(this.email)
       .then(auth => {
-        console.log('erreur : ', auth);
+        // on check si l'email est connecté ou non avec un provider
         if (auth[0] === 'google.com') {
           this.googleAuth();
         } else if (auth[0] === 'microsoft.com') {
           this.microsoftAuth();
+        } else if (auth[0] === 'github.com') {
+          this.githubAuth();
         } else if (auth.length === 1) { // si le mail existe, on l'envoi sur la page de login
           this.router.navigateByUrl('login?' + this.email).then();
         } else { // sinon on l'envoi sur la page pour créer un compte
@@ -42,7 +47,7 @@ export class SIdentifierPage implements OnInit {
   }
 
   googleAuth() {
-    console.log('google');
+    // connexion de l'utilisateur avec Google
     this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then((res) => {
         this.router.navigateByUrl('/').then();
@@ -53,7 +58,7 @@ export class SIdentifierPage implements OnInit {
   }
 
   microsoftAuth() {
-    console.log('microsoft');
+    // connexion de l'utilisateur avec Microsoft
     this.afAuth.signInWithPopup(new firebase.auth.OAuthProvider('microsoft.com'))
       .then((res) => {
         this.router.navigateByUrl('/').then();
@@ -64,7 +69,7 @@ export class SIdentifierPage implements OnInit {
   }
 
   githubAuth() {
-    console.log('github');
+    // connexion de l'utilisateur avec Github
     this.afAuth.signInWithPopup(new firebase.auth.GithubAuthProvider())
       .then((res) => {
         this.router.navigateByUrl('/').then();
@@ -75,6 +80,7 @@ export class SIdentifierPage implements OnInit {
   }
 
   anonymousAuth() {
+    // connexion en temps qu'invité
     this.afAuth.signInAnonymously()
       .then(res => {
         this.router.navigateByUrl('/').then();

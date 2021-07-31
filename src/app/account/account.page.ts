@@ -9,10 +9,15 @@ import {Display} from '../shared/class/display';
   styleUrls: ['./account.page.scss'],
 })
 export class AccountPage implements OnInit {
+  // pour le changement de mot de passe
   public oldPassword: string;
   public newPassword: string;
   public confirmNewPassword: string;
+
+  // pour la suppression du compte
   public password: string;
+
+  // pour désactiver le bouton lors de l'envoi de la vérification du mail
   public disabledButton: boolean;
 
   constructor(
@@ -22,17 +27,18 @@ export class AccountPage implements OnInit {
   ) {
     this.disabledButton = false;
     this.password = '';
-    console.log(!user.isEmailVerified());
   }
 
   ngOnInit() {
   }
 
+  // désactive le bouton puis lance l'email de vérification
   sendEmailVerification() {
     this.disabledButton = true;
     this.user.sendEmailVerification();
   }
 
+  //vérifie si les mots de passe sont bien les mêmes, puis change le mot de passe
   changePassword() {
     if (this.newPassword === this.confirmNewPassword) {
       this.user.changePassword(this.oldPassword, this.newPassword);
@@ -46,6 +52,7 @@ export class AccountPage implements OnInit {
     this.confirmNewPassword = '';
   }
 
+  // supprime le compte puis remet à 0 le mot de passe sur la page
   suppressionAccount() {
     this.user.suppAccount(this.password);
     this.password = '';

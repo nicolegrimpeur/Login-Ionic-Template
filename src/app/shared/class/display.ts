@@ -10,10 +10,13 @@ export class Display {
   ) {
   }
 
+  // affiche d'un toast contenant le texte de l'erreur
   async displayError(err: any) {
     let strMessage;
     let couleur = 'danger';
 
+    // on vérifie par rapport aux codes connus et on affiche le texte désiré en fonction
+    // sinon on donne le texte de l'erreur à afficher
     if (err.code === 'auth/user-not-found') {
       strMessage = 'Aucun utilisateur enregistré avec cette adresse email, merci de vous créer un compte';
     } else if (err.code === 'auth/wrong-password') {
@@ -36,17 +39,20 @@ export class Display {
       strMessage = err;
     }
 
+    // si l'on donne une couleur dans l'erreur
     if (err.color !== undefined) {
       strMessage = err.code;
       couleur = err.color;
     }
 
+    // création du toast
     const toast = await this.toastController.create({
       message: strMessage,
       duration: 4000,
       position: 'top',
       color: couleur
     });
+    // affichage du toast
     await toast.present();
   }
 }
