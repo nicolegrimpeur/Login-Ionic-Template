@@ -12,10 +12,10 @@ import {firebaseConfig} from '../../app.module';
 })
 export class User {
   public userData = {
-    userId: '',
-    mail: '',
-    method: '',
-    displayName: ''
+    userId: undefined,
+    mail: undefined,
+    method: undefined,
+    displayName: undefined
   };
   private currentUser: any;
 
@@ -74,10 +74,13 @@ export class User {
       if (!auth) {
         console.log('non connecté');
       } else {
+        console.log(auth.isAnonymous);
+        if (!auth.isAnonymous) {
+          this.userData.mail = auth.email;
+          this.userData.method = auth.providerData[0].providerId;
+          this.userData.displayName = auth.displayName;
+        }
         this.userData.userId = auth.uid;
-        this.userData.mail = auth.email;
-        this.userData.method = auth.providerData[0].providerId;
-        this.userData.displayName = auth.displayName;
       }
     });
   }
@@ -169,6 +172,9 @@ export class User {
           .catch(err => {
             this.display.displayError(err).then();
           });
+        break;
+      case undefined:
+        this.suppressionDuCompte();
         break;
       default:
         this.afAuth.signInWithEmailAndPassword(this.userData.mail, password)

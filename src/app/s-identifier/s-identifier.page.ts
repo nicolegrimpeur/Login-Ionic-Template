@@ -44,7 +44,7 @@ export class SIdentifierPage implements OnInit {
   googleAuth() {
     console.log('google');
     this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then((result) => {
+      .then((res) => {
         this.router.navigateByUrl('/').then();
       })
       .catch(err => {
@@ -55,7 +55,7 @@ export class SIdentifierPage implements OnInit {
   microsoftAuth() {
     console.log('microsoft');
     this.afAuth.signInWithPopup(new firebase.auth.OAuthProvider('microsoft.com'))
-      .then((result) => {
+      .then((res) => {
         this.router.navigateByUrl('/').then();
       })
       .catch(err => {
@@ -66,7 +66,17 @@ export class SIdentifierPage implements OnInit {
   githubAuth() {
     console.log('github');
     this.afAuth.signInWithPopup(new firebase.auth.GithubAuthProvider())
-      .then((result) => {
+      .then((res) => {
+        this.router.navigateByUrl('/').then();
+      })
+      .catch(err => {
+        this.display.displayError(err).then();
+      });
+  }
+
+  anonymousAuth() {
+    this.afAuth.signInAnonymously()
+      .then(res => {
         this.router.navigateByUrl('/').then();
       })
       .catch(err => {
