@@ -49,7 +49,7 @@
     </ion-card-header>
 
     <ion-card-content>
-      <ion-item>
+      <ion-item *ngIf="user.isConnectedWithEmail()">
         <ion-label><b>Mot de passe</b></ion-label>
         <ion-input [(ngModel)]="password" type="password" placeholder="Mot de passe"></ion-input>
       </ion-item>

@@ -121,22 +121,60 @@ export class User {
       .then(() => this.display.displayError({code: 'Email envoyé !', color: 'success'}));
   }
 
+  reAuthenticate() {
+
+  }
+
   suppAccount(password) {
     this.initCurrentUser();
 
-    this.afAuth.signInWithEmailAndPassword(this.mail, password)
-      .then(res => {
-        this.currentUser.delete()
-          .then(() => {
-            this.display.displayError({code: 'Utilisateur supprimé', color: 'success'}).then();
+    switch (this.method) {
+      case 'google.com':
+        this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+          .then((result) => {
+            this.suppressionDuCompte();
           })
-          .catch((err) => {
-            this.display.displayError('Erreur suppression du compte : ' + err).then();
+          .catch(err => {
+            this.display.displayError(err).then();
           });
-      })
-      .catch(err => {
-        this.display.displayError('Le mot de passe entré est incorrect').then();
-      });
+        break;
+      case 'microsoft.com':
+        this.afAuth.signInWithPopup(new firebase.auth.OAuthProvider('microsoft.com'))
+          .then((result) => {
+            this.suppressionDuCompte();
+          })
+          .catch(err => {
+            this.display.displayError(err).then();
+          });
+        break;
+      case 'github.com':
+        this.afAuth.signInWithPopup(new firebase.auth.GithubAuthProvider())
+          .then((result) => {
+            this.suppressionDuCompte();
+          })
+          .catch(err => {
+            this.display.displayError(err).then();
+          });
+        break;
+      default:
+        this.afAuth.signInWithEmailAndPassword(this.mail, password)
+          .then(res => {
+            this.suppressionDuCompte();
+          })
+          .catch(err => {
+            this.display.displayError('Le mot de passe entré est incorrect').then();
+          });
+        break;
+    }
+  }
 
+  suppressionDuCompte() {
+    this.currentUser.delete()
+      .then(() => {
+        this.display.displayError({code: 'Utilisateur supprimé', color: 'success'}).then();
+      })
+      .catch((err) => {
+        this.display.displayError('Erreur suppression du compte : ' + err).then();
+      });
   }
 }

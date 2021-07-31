@@ -21,6 +21,7 @@ export class AccountPage implements OnInit {
     private display: Display
   ) {
     this.disabledButton = false;
+    this.password = '';
     console.log(!user.isEmailVerified());
   }
 
