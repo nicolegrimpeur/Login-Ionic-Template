@@ -11,10 +11,12 @@ import {firebaseConfig} from '../../app.module';
   providedIn: 'platform'
 })
 export class User {
-  public userId: string;
-  public mail: string;
-  public method: any;
-  public displayName: string;
+  public userData = {
+    userId: '',
+    mail: '',
+    method: '',
+    displayName: ''
+  };
   private currentUser: any;
 
   constructor(
@@ -63,7 +65,7 @@ export class User {
         console.log('ayez', res);
       })
       .catch(err => {
-        this.display.displayError('Erreur lors de l\'ajout du nom d\'utilisateur');
+        this.display.displayError('Erreur lors de l\'ajout du nom d\'utilisateur').then();
       });
   }
 
@@ -72,10 +74,10 @@ export class User {
       if (!auth) {
         console.log('non connecté');
       } else {
-        this.userId = auth.uid;
-        this.mail = auth.email;
-        this.method = auth.providerData[0].providerId;
-        this.displayName = auth.displayName;
+        this.userData.userId = auth.uid;
+        this.userData.mail = auth.email;
+        this.userData.method = auth.providerData[0].providerId;
+        this.userData.displayName = auth.displayName;
       }
     });
   }
@@ -94,13 +96,14 @@ export class User {
       });
 
     this.afAuth.signOut().then();
-    this.userId = undefined;
-    this.mail = undefined;
-    this.method = undefined;
+    this.userData.userId = undefined;
+    this.userData.mail = undefined;
+    this.userData.method = undefined;
+    this.userData.displayName = undefined;
   }
 
   isConnectedWithEmail() {
-    return this.method === 'password';
+    return this.userData.method === 'password';
   }
 
   isEmailVerified() {
@@ -122,7 +125,7 @@ export class User {
   changePassword(oldPassword, newPassword) {
     this.initCurrentUser();
 
-    this.afAuth.signInWithEmailAndPassword(this.mail, oldPassword)
+    this.afAuth.signInWithEmailAndPassword(this.userData.mail, oldPassword)
       .then(res => {
         this.currentUser.updatePassword(newPassword).then(() => {
           this.display.displayError({code: 'Mot de passe changé', color: 'success'}).then();
@@ -139,7 +142,7 @@ export class User {
   suppAccount(password) {
     this.initCurrentUser();
 
-    switch (this.method) {
+    switch (this.userData.method) {
       case 'google.com':
         this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
           .then((result) => {
@@ -168,7 +171,7 @@ export class User {
           });
         break;
       default:
-        this.afAuth.signInWithEmailAndPassword(this.mail, password)
+        this.afAuth.signInWithEmailAndPassword(this.userData.mail, password)
           .then(res => {
             this.suppressionDuCompte();
           })
