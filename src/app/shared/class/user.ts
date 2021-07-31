@@ -30,9 +30,9 @@ export class User {
     this.initCurrentUser();
   }
 
+  // initialise le currentUser
   initCurrentUser() {
     this.currentUser = firebase.auth().currentUser;
-    console.log('current user', this.currentUser);
   }
 
   // test si l'on est sur une page de login
@@ -48,7 +48,6 @@ export class User {
             this.router.navigateByUrl('/').then();
           }
         } else {
-          console.log('/authenticate');
           this.router.navigateByUrl('/authenticate').then();
         }
       });
@@ -60,17 +59,14 @@ export class User {
       if (!auth) {
         console.log('non connecté');
       } else {
-        console.log('connecté: ' + auth.uid);
         this.userId = auth.uid;
         this.mail = auth.email;
         this.method = auth.providerData[0].providerId;
-        console.log(this.method);
       }
     });
   }
 
   logout() {
-    console.log('déconnexion');
     this.display.displayError({code: 'Vous êtes déconnecté', color: 'success'}).then();
 
     this.menu.isOpen('menu')
@@ -91,6 +87,16 @@ export class User {
 
   isConnectedWithEmail() {
     return this.method === 'password';
+  }
+
+  isEmailVerified() {
+    if (!this.isConnectedWithEmail()) {
+      return false;
+    }
+    if (this.currentUser === null) {
+      this.initCurrentUser();
+    }
+    return this.currentUser.emailVerified;
   }
 
   changePassword(oldPassword, newPassword) {

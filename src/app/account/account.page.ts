@@ -13,22 +13,23 @@ export class AccountPage implements OnInit {
   public newPassword: string;
   public confirmNewPassword: string;
   public password: string;
+  public disabledButton: boolean;
 
   constructor(
     private menu: MenuController,
     public user: User,
     private display: Display
   ) {
-    this.menu.isOpen('menu')
-      .then(res => {
-        console.log(res, 'res');
-      })
-      .catch(err => {
-        console.log(err, 'menu');
-      });
+    this.disabledButton = false;
+    console.log(!user.isEmailVerified());
   }
 
   ngOnInit() {
+  }
+
+  sendEmailVerification() {
+    this.disabledButton = true;
+    this.user.sendEmailVerification();
   }
 
   changePassword() {

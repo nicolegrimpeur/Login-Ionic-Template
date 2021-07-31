@@ -9,6 +9,11 @@
 </ion-header>
 
 <ion-content>
+  <ion-button *ngIf="!user.isEmailVerified()" disabled="{{disabledButton}}" fill="clear" (click)="sendEmailVerification()">
+    Vérifier votre email
+  </ion-button>
+  <p *ngIf="disabledButton">Check ta boite mail !</p>
+
   <ion-card *ngIf="user.isConnectedWithEmail()">
     <ion-card-header>
       <ion-card-title>Changer votre mot de passe</ion-card-title>
@@ -35,7 +40,7 @@
   </ion-card>
 
 
-  <ion-card *ngIf="user.isConnectedWithEmail()">
+  <ion-card>
     <ion-card-header>
       <ion-card-title>Suppression de votre compte</ion-card-title>
     </ion-card-header>
