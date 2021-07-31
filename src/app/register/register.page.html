@@ -17,6 +17,11 @@
           </ion-item>
 
           <ion-item>
+            <ion-label><b>Nom d'utilisateur</b></ion-label>
+            <ion-input [(ngModel)]="registerData.displayName" type="text" placeholder="Entrez nom d'utilisateur"></ion-input>
+          </ion-item>
+
+          <ion-item>
             <ion-label><b>Mot de passe</b></ion-label>
             <ion-input [(ngModel)]="registerData.password" type="password" minlength="6" maxlength="32" placeholder="Entrez votre mot de passe"></ion-input>
           </ion-item>

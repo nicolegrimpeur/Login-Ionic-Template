@@ -10,11 +10,12 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-button (click)="user.initCurrentUser()">Click to init current user</ion-button>
+
   <ion-item>
     <ion-label>
       <p>Nom</p>
       <h2><b>{{ user.displayName }}</b></h2>
-      <ion-button (click)="user.initCurrentUser()">Click to init current user</ion-button>
     </ion-label>
   </ion-item>
 

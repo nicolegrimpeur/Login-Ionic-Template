@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Display} from '../shared/class/display';
+import {User} from '../shared/class/user';
 
 @Component({
   selector: 'app-register',
@@ -12,13 +13,15 @@ export class RegisterPage implements OnInit {
   public registerData = {
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    displayName: ''
   };
 
   constructor(
     public router: Router,
     public afAuth: AngularFireAuth,
-    public display: Display
+    public display: Display,
+    private user: User
   ) {
     let after = false;
     for (const i of this.router.url) {
@@ -51,6 +54,7 @@ export class RegisterPage implements OnInit {
       .then(auth => {
         console.log('utilisateur connecté');
         this.router.navigateByUrl('/').then();
+        this.user.addDisplayName(this.registerData.displayName);
       })
       .catch(err => {
         console.log('Erreur: ' + err);

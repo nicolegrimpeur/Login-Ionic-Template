@@ -56,6 +56,17 @@ export class User {
     });
   }
 
+  addDisplayName(name) {
+    this.initCurrentUser();
+    this.currentUser.updateProfile({ displayName: name })
+      .then(res => {
+        console.log('ayez', res);
+      })
+      .catch(err => {
+        this.display.displayError('Erreur lors de l\'ajout du nom d\'utilisateur');
+      });
+  }
+
   connexion() {
     this.afAuth.authState.subscribe(auth => {
       if (!auth) {
@@ -64,6 +75,7 @@ export class User {
         this.userId = auth.uid;
         this.mail = auth.email;
         this.method = auth.providerData[0].providerId;
+        this.displayName = auth.displayName;
       }
     });
   }
@@ -101,6 +113,12 @@ export class User {
     return this.currentUser.emailVerified;
   }
 
+  sendEmailVerification() {
+    this.initCurrentUser();
+    this.currentUser.sendEmailVerification()
+      .then(() => this.display.displayError({code: 'Email envoyé !', color: 'success'}));
+  }
+
   changePassword(oldPassword, newPassword) {
     this.initCurrentUser();
 
@@ -108,6 +126,7 @@ export class User {
       .then(res => {
         this.currentUser.updatePassword(newPassword).then(() => {
           this.display.displayError({code: 'Mot de passe changé', color: 'success'}).then();
+          this.router.navigateByUrl('/').then();
         }).catch((err) => {
           this.display.displayError('Erreur dans le changement de mot de passe : ' + err).then();
         });
@@ -115,16 +134,6 @@ export class User {
       .catch(err => {
         this.display.displayError('L\'ancien mot de passe entré est incorrect').then();
       });
-  }
-
-  sendEmailVerification() {
-    this.initCurrentUser();
-    this.currentUser.sendEmailVerification()
-      .then(() => this.display.displayError({code: 'Email envoyé !', color: 'success'}));
-  }
-
-  reAuthenticate() {
-
   }
 
   suppAccount(password) {
