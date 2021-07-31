@@ -14,6 +14,7 @@ export class User {
   public userId: string;
   public mail: string;
   public method: any;
+  public displayName: string;
   private currentUser: any;
 
   constructor(
@@ -33,6 +34,7 @@ export class User {
   // initialise le currentUser
   initCurrentUser() {
     this.currentUser = firebase.auth().currentUser;
+    console.log(this.currentUser);
   }
 
   // test si l'on est sur une page de login

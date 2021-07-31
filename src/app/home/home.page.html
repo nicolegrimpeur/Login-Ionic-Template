@@ -12,6 +12,14 @@
 <ion-content [fullscreen]="true">
   <ion-item>
     <ion-label>
+      <p>Nom</p>
+      <h2><b>{{ user.displayName }}</b></h2>
+      <ion-button (click)="user.initCurrentUser()">Click to init current user</ion-button>
+    </ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>
       <p>Méthode de connexion</p>
       <h2><b>{{ user.method }}</b></h2>
     </ion-label>

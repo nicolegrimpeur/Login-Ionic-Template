@@ -24,6 +24,8 @@ export class Display {
       strMessage = 'Votre organisation doit d\'abord valider la connexion';
     } else if (err.code === 'auth/account-exists-with-different-credential') {
       strMessage = 'L\'adresse email utilisée est associé à un autre compte';
+    } else if (err.code === 'auth/weak-password') {
+      strMessage = 'Mot de passe faible, celui ci doit être d\'au moins 6 caractères';
     } else if (err.code === 'auth/popup-closed-by-user') {
       strMessage = 'La popup de connexion a été fermé brusquement, veuillez réessayer ' +
         'ou désactiver votre adblocker si l\'erreur continue de se produire';
