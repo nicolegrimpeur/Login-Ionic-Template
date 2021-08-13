@@ -26,6 +26,14 @@
   <p style="text-align: center">--- ou ---</p>
 
   <ion-button
+    type="submit" color="primary" expand="block" (click)="justAuthMe()">
+<!--    <ion-icon name="person-outline"></ion-icon>-->
+    Se connecter Avec JustAuthMe
+  </ion-button>
+
+  <br>
+
+  <ion-button
     type="submit" color="danger" expand="block" (click)="googleAuth()">
     <ion-icon slot="start" name="logo-google"></ion-icon>
     Connexion avec Google

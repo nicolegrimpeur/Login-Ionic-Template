@@ -70,6 +70,18 @@ export class User {
       });
   }
 
+  // ajoute au compte une url de photo (utilisé pour stocker les jamId de JustAuthMe)
+  addUrlPhoto(url) {
+    this.initCurrentUser();
+    this.currentUser.updateProfile({ photoURL: url })
+      .then(res => {
+        console.log('ayez', res);
+      })
+      .catch(err => {
+        this.display.displayError('Erreur lors de l\'ajout du jamIs').then();
+      });
+  }
+
   // récupère les données de connexion
   connexion() {
     this.afAuth.authState.subscribe(auth => {

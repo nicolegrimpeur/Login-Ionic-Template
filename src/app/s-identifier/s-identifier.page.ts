@@ -3,6 +3,8 @@ import {Router} from '@angular/router';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Display} from '../shared/class/display';
 import firebase from 'firebase';
+import {HttpService} from '../shared/core/http.service';
+import {JustAuthMe} from '../shared/models/justAuthMe';
 
 @Component({
   selector: 'app-s-identifier',
@@ -16,7 +18,8 @@ export class SIdentifierPage implements OnInit {
   constructor(
     public router: Router,
     public afAuth: AngularFireAuth,
-    private display: Display
+    private display: Display,
+    private http: HttpService
   ) {
   }
 
@@ -45,6 +48,28 @@ export class SIdentifierPage implements OnInit {
         this.display.displayError(err).then();
       });
   }
+
+  async justAuthMe() {
+    // connexion de l'utilisateur avec JustAuthMe
+    let status = '';
+    let jamId = '';
+    let email = '';
+    await this.http.getApi().toPromise().then((res: JustAuthMe) => {
+      status = res.status;
+      jamId = res.jamId;
+      email = res.email;
+
+      this.afAuth.signInWithEmailAndPassword(res.email, 'JeSuisConnecteAvecJustAuthMe' + res.jamId)
+        .then(auth => {
+          this.router.navigateByUrl('/').then();
+
+
+        })
+        .catch(err => {
+          this.display.displayError(err).then();
+        });
+    });
+    }
 
   googleAuth() {
     // connexion de l'utilisateur avec Google
